@@ -21,7 +21,6 @@ def print_message(msg: str):
     print(msg)
     print('='*len(msg) + '\n')
 
-
 def show_book (book: dict[int, list[str]], msg:str):
     if book:
         print('\n' + '*'* 67)

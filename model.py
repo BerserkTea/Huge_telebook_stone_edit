@@ -1,13 +1,18 @@
+from copy import deepcopy
+
 PATH = 'G:\GeekBrains\Developer.Prog\Python\Seminars\lst_sem\huge_phonebook\phone.txt'
 phone_book = {}
+original_book = {}
 
 def open_file():
+    global phone_book, original_book, PATH
     with open(PATH, 'r', encoding='UTF-8') as file:
         data=file.readlines()
     for i,contact in enumerate(data, 1):
         contact = contact.strip().split(';')
         phone_book[i] = contact
     # print(phone_book)
+    original_book = deepcopy(phone_book)
 
 def save_file():
     global phone_book, PATH
@@ -39,11 +44,10 @@ def edit_contact(c_id: int, new_contact: list[str]):
     current_contact = phone_book.get(c_id)
     contact = []
     for i in range(len(new_contact)):
-        if new_contact:
+        if new_contact[i]:
             contact.append(new_contact[i])
         else:
-            contact.append(current_contact(i))
-
+            contact.append(current_contact[i])
     phone_book[c_id] = contact
     return new_contact[0]
 

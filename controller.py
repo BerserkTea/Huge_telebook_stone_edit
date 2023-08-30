@@ -2,12 +2,14 @@ import model
 import text
 import view
 
+
 def search_contact():
     word = view.input_request(text.input_search_word)
     result = model.find_contact(word)
     view.show_book(result,text.not_find(word))
     if result:
         return True
+
 
 def start():
     while True:
@@ -18,7 +20,7 @@ def start():
                 view.print_message(text.load_succesful)
             case 2:
                 model.save_file()
-                view.print_message=(text.save_succesful)
+                view.print_message(text.save_succesful)
             case 3:
                 view.show_book(model.phone_book, text.empty_book_error)
             case 4:
@@ -36,10 +38,12 @@ def start():
             case 7:
                 if search_contact():
                     c_id = int(view.input_request(text.input_del_contact_id))
-
                     name = model.delete_contact(c_id)
-                    view.print_message(text.contact_action(name, text.operation[2]))
-                    
+                    view.print_message(text.contact_action(name, text.operation[2]))                    
             case 8:
+                if model.original_book != model.phone_book:
+                    if view.input_request(text.confirm_changes).lower() == 'y':
+                        model.save_file()
+                        view.print_message(text.save_succesful)
                 view.print_message(text.exit_programm)
                 break
